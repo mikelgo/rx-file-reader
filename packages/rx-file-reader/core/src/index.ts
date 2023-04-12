@@ -1,1 +1,1 @@
-export * from './lib/rx-file-reader-core';
+export * from './lib/create-rx-file-reader';
