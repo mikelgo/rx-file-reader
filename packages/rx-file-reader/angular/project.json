@@ -1,0 +1,38 @@
+{
+  "name": "angular",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/rx-file-reader/angular/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/vite:build",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/rx-file-reader/angular"
+      }
+    },
+    "publish": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node tools/scripts/publish.mjs rx-file-reader-angular {args.ver} {args.tag}"
+      },
+      "dependsOn": ["build"]
+    },
+    "test": {
+      "executor": "@nrwl/vite:test",
+      "outputs": ["coverage/packages/rx-file-reader/angular"],
+      "options": {
+        "passWithNoTests": true,
+        "reportsDirectory": "../../../coverage/packages/rx-file-reader/angular"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["packages/rx-file-reader/angular/**/*.ts"]
+      }
+    }
+  },
+  "tags": []
+}

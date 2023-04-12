@@ -14,7 +14,12 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@rx-file-reader/angular": [
+        "packages/rx-file-reader/angular/src/index.ts"
+      ],
+      "@rx-file-reader/core": ["packages/rx-file-reader/core/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
