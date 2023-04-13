@@ -1,6 +1,6 @@
 {
   "name": "@rx-file-reader/core",
-  "version": "0.0.1",
+  "version": "0.0.1-rc.0",
   "type": "commonjs",
   "peerDependencies": {
     "rxjs": ">=6.5.5"
