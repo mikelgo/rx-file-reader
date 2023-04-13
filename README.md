@@ -4,5 +4,5 @@
 
 ## Packages
 
-* [core](./packages/rx-file-reader/core/README.md)
-* [angular](./packages/rx-file-reader/angular/README.md)
+* [core](./packages/rx-file-reader/core/README.md): a framework agnostic observable wrapper 
+* [angular](./packages/rx-file-reader/angular/README.md): convenience methods to work with the `core`-package specific to Angular
