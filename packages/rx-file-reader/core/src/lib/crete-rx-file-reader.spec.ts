@@ -1,6 +1,5 @@
 import { describe, test } from 'vitest';
 import { createRxFileReader$ } from './create-rx-file-reader';
-import { lastValueFrom } from 'rxjs';
 
 describe('createRxFileReader', () => {
   test('should create an observable instance', () => {
@@ -15,7 +14,7 @@ describe('createRxFileReader', () => {
         const { file, fileName, content } = createFile();
         const fileReader$ = createRxFileReader$(file, 'text');
 
-        const result = await lastValueFrom(fileReader$);
+        const result = await fileReader$.toPromise();
 
         expect(result.fileName).toEqual(fileName);
         expect(result.sourceFile).toEqual(file);
@@ -25,10 +24,10 @@ describe('createRxFileReader', () => {
 
     describe('type dataURL', () => {
       test('should emit a FileReaderResult with content as string', async () => {
-        const { file, fileName, content } = createFile();
+        const { file, fileName } = createFile();
         const fileReader$ = createRxFileReader$(file, 'dataURL');
 
-        const result = await lastValueFrom(fileReader$);
+        const result = await fileReader$.toPromise();
 
         expect(result.fileName).toEqual(fileName);
         expect(result.sourceFile).toEqual(file);
@@ -43,7 +42,7 @@ describe('createRxFileReader', () => {
         const { file, fileName, content } = createFile();
         const fileReader$ = createRxFileReader$(file, 'binaryString');
 
-        const result = await lastValueFrom(fileReader$);
+        const result = await fileReader$.toPromise();
 
         expect(result.fileName).toEqual(fileName);
         expect(result.sourceFile).toEqual(file);
@@ -58,7 +57,7 @@ describe('createRxFileReader', () => {
       const fileReader$ = createRxFileReader$(file, 'text');
 
       try {
-        await lastValueFrom(fileReader$);
+        await fileReader$.toPromise();
       } catch (error) {
         expect(error).toBeDefined();
       }
@@ -70,7 +69,7 @@ describe('createRxFileReader', () => {
       const { file } = createFile();
       const fileReader$ = createRxFileReader$(file, 'text');
 
-      const result = await lastValueFrom(fileReader$);
+      const result = await fileReader$.toPromise();
 
       expect(result.progress.isTrusted).toEqual(true);
     });

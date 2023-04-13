@@ -1,4 +1,5 @@
-import { Observable, scan } from 'rxjs';
+import { Observable } from 'rxjs';
+import { scan } from 'rxjs/operators';
 
 /**
  * @publicApi
