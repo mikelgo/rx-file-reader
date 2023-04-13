@@ -2,6 +2,8 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [1.1.0](https://github.com/mikelgo/rx-file-reader/compare/core@1.0.0...core@1.1.0) (2023-04-13)
+
 ## [1.0.0](https://github.com/mikelgo/rx-file-reader/compare/core@0.0.1-rc.0...core@1.0.0) (2023-04-13)
 
 ### 0.0.1-rc.0 (2023-04-13)
