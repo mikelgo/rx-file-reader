@@ -1,5 +1,4 @@
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
 
 export interface FileReaderResult<R extends string | ArrayBuffer | null> {
   fileName: string;
@@ -40,7 +39,6 @@ export function createRxFileReader$<R extends string | ArrayBuffer | null>(
   return new Observable<FileReaderResult<R>>((observer) => {
     const fileReader = new FileReader();
     fileReader.onload = () => {
-      console.log('onload');
       observer.next({
         fileName: file.name,
         sourceFile: file,
@@ -62,7 +60,6 @@ export function createRxFileReader$<R extends string | ArrayBuffer | null>(
     };
 
     if (format === 'text') {
-      console.log('read as text');
       fileReader.readAsText(file);
     } else if (format === 'arrayBuffer') {
       fileReader.readAsArrayBuffer(file);
@@ -78,5 +75,5 @@ export function createRxFileReader$<R extends string | ArrayBuffer | null>(
       // Clean up file reader if subscription is unsubscribed
       fileReader.abort();
     };
-  }).pipe(tap((x) => console.log('tap', x)));
+  });
 }
