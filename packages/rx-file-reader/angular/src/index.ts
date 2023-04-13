@@ -1,1 +1,1 @@
-export * from './lib/rx-file-reader-angular';
+export * from './lib/rx-file-reader-angular.module';

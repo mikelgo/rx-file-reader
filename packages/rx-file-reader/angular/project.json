@@ -1,36 +1,49 @@
 {
-  "name": "angular",
+  "name": "rx-file-reader-angular",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/rx-file-reader/angular/src",
+  "prefix": "rx-file-reader",
+  "tags": [],
   "projectType": "library",
   "targets": {
     "build": {
-      "executor": "@nrwl/vite:build",
-      "outputs": ["{options.outputPath}"],
+      "executor": "@nrwl/angular:package",
+      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
       "options": {
-        "outputPath": "dist/packages/rx-file-reader/angular"
-      }
-    },
-    "publish": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "node tools/scripts/publish.mjs rx-file-reader-angular {args.ver} {args.tag}"
+        "project": "packages/rx-file-reader/angular/ng-package.json"
       },
-      "dependsOn": ["build"]
+      "configurations": {
+        "production": {
+          "tsConfig": "packages/rx-file-reader/angular/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "packages/rx-file-reader/angular/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
     },
     "test": {
-      "executor": "@nrwl/vite:test",
-      "outputs": ["coverage/packages/rx-file-reader/angular"],
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "passWithNoTests": true,
-        "reportsDirectory": "../../../coverage/packages/rx-file-reader/angular"
+        "jestConfig": "packages/rx-file-reader/angular/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
       }
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["packages/rx-file-reader/angular/**/*.ts"]
+        "lintFilePatterns": [
+          "packages/rx-file-reader/angular/**/*.ts",
+          "packages/rx-file-reader/angular/**/*.html"
+        ]
       }
     },
     "version": {
@@ -52,7 +65,7 @@
         "notes": "${notes}"
       }
     },
-    "publish-core": {
+    "publish-angular": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
         "commands": [
@@ -80,6 +93,5 @@
         }
       ]
     }
-  },
-  "tags": []
+  }
 }
