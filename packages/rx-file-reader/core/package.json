@@ -4,5 +4,22 @@
   "type": "commonjs",
   "peerDependencies": {
     "rxjs": ">=6.5.5"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "MIT",
+  "description": "RxJs wrapper around the browser native FileReader API",
+  "keywords": [
+    "FileReader",
+    "Rxjs",
+    "File",
+    "FileReader API"
+  ],
+  "author": "Michael Berger",
+  "homepage": "https://github.com/mikelgo/rx-file-reader.git#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mikelgo/rx-file-reader.git"
   }
 }
