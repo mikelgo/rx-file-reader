@@ -1,11 +1,45 @@
-# rx-file-reader-core
+# @rx-file-reader/core
 
 This library was generated with [Nx](https://nx.dev).
 
-## Building
+## Installation
 
-Run `nx build rx-file-reader-core` to build the library.
+```bash
+npm install @rx-file-reader/core
+```
 
-## Running unit tests
+## Basic Usage
 
-Run `nx test rx-file-reader-core` to execute the unit tests via [Jest](https://jestjs.io).
+```typescript
+
+import { createRxFileReader$ } from '@rx-file-reader/core';
+
+const inputElement = document.querySelector('input[type="file"]');
+let file;
+inputElement.addEventListener('change', (event) => {
+  file = event.target.files[0];
+});
+
+
+const fileReader$ = createRxFileReader$({
+  file: file,
+  format: 'text',
+});
+
+fileReader$.subscribe({
+  next: (event) => {
+    console.log(event);
+  },
+  error: (error) => {
+    console.error(error);
+  },
+  complete: () => {
+    console.log('complete');
+  },
+});
+
+```
+
+## Versioning
+
+This project uses [SemVer](http://semver.org/) for versioning.
