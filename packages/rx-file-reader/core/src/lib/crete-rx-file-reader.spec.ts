@@ -17,11 +17,9 @@ describe('createRxFileReader', () => {
 
         const result = await lastValueFrom(fileReader$);
 
-        expect(result).toEqual({
-          fileName,
-          sourceFile: file,
-          content: content[0],
-        });
+        expect(result.fileName).toEqual(fileName);
+        expect(result.sourceFile).toEqual(file);
+        expect(result.content).toEqual(content[0]);
       });
     });
 
@@ -32,11 +30,11 @@ describe('createRxFileReader', () => {
 
         const result = await lastValueFrom(fileReader$);
 
-        expect(result).toEqual({
-          fileName,
-          sourceFile: file,
-          content: 'data:text/plain;base64,dGVzdCBjb250ZW50',
-        });
+        expect(result.fileName).toEqual(fileName);
+        expect(result.sourceFile).toEqual(file);
+        expect(result.content).toEqual(
+          'data:text/plain;base64,dGVzdCBjb250ZW50'
+        );
       });
     });
 
@@ -47,11 +45,9 @@ describe('createRxFileReader', () => {
 
         const result = await lastValueFrom(fileReader$);
 
-        expect(result).toEqual({
-          fileName,
-          sourceFile: file,
-          content: content[0],
-        });
+        expect(result.fileName).toEqual(fileName);
+        expect(result.sourceFile).toEqual(file);
+        expect(result.content).toEqual(content[0]);
       });
     });
   });
@@ -69,9 +65,16 @@ describe('createRxFileReader', () => {
     });
   });
 
-  //describe('onabort', () => {});
+  describe('onprogress', () => {
+    test('should emit all progress events', async () => {
+      const { file } = createFile();
+      const fileReader$ = createRxFileReader$(file, 'text');
 
-  //describe('onprogress', () => {});
+      const result = await lastValueFrom(fileReader$);
+
+      expect(result.progress.isTrusted).toEqual(true);
+    });
+  });
 });
 
 function createFile() {

@@ -1,9 +1,10 @@
-import { Observable } from 'rxjs';
+import { Observable, scan } from 'rxjs';
 
 export interface FileReaderResult<R extends string | ArrayBuffer | null> {
   fileName: string;
   sourceFile: File;
   content: R;
+  progress: ProgressEvent<FileReader>;
 }
 
 export interface RxFileReaderConfig {
@@ -36,7 +37,7 @@ export function createRxFileReader$<R extends string | ArrayBuffer | null>(
   file: File,
   format: RxFileReaderResultFormat
 ): Observable<FileReaderResult<R>> {
-  return new Observable<FileReaderResult<R>>((observer) => {
+  return new Observable<Partial<FileReaderResult<R>>>((observer) => {
     const fileReader = new FileReader();
     fileReader.onload = () => {
       observer.next({
@@ -57,6 +58,7 @@ export function createRxFileReader$<R extends string | ArrayBuffer | null>(
 
     fileReader.onprogress = (progressEvent: ProgressEvent<FileReader>) => {
       // todo accumulate progress. look at suspensify operator from jscutlery
+      observer.next({ progress: progressEvent });
     };
 
     if (format === 'text') {
@@ -75,5 +77,7 @@ export function createRxFileReader$<R extends string | ArrayBuffer | null>(
       // Clean up file reader if subscription is unsubscribed
       fileReader.abort();
     };
-  });
+  }).pipe(
+    scan((acc, value) => ({ ...acc, ...value }), {} as FileReaderResult<R>)
+  );
 }
