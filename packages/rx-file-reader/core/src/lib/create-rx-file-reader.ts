@@ -1,5 +1,12 @@
 import { Observable, scan } from 'rxjs';
 
+/**
+ * @publicApi
+ * @description
+ * The result of RxFileReader
+ *
+ * @param R The result format
+ */
 export interface FileReaderResult<R extends string | ArrayBuffer | null> {
   fileName: string;
   sourceFile: File;
@@ -7,16 +14,47 @@ export interface FileReaderResult<R extends string | ArrayBuffer | null> {
   progress: ProgressEvent<FileReader>;
 }
 
-export interface RxFileReaderConfig {
-  resultFormat: 'text' | 'arrayBuffer' | 'dataURL' | 'binaryString';
-}
-
+/**
+ * @publicApi
+ * @description
+ * The supported result formats of RxFileReader.
+ *
+ * See https://developer.mozilla.org/en-US/docs/Web/API/FileReader/result
+ */
 export type RxFileReaderResultFormat =
   | 'text'
   | 'arrayBuffer'
   | 'dataURL'
   | 'binaryString';
 
+/**
+ * @publicApi
+ *
+ * @description
+ * The configuration for RxFileReader.
+ */
+export interface RxFileReaderConfig {
+  resultFormat: RxFileReaderResultFormat;
+}
+
+/**
+ * @publicApi
+ *
+ * @description
+ * Create an observable which does wrap the browser FileReaderApi: https://developer.mozilla.org/en-US/docs/Web/API/FileReader
+ *
+ * @example
+ *
+ * const fileReader$ = createRxFileReader$(file, 'text');
+ * fileReader$.subscribe({
+ *  next: (result) => {// do something with the read file},
+ *  error: (error) => { // handle error while reading the file },
+ * })
+ *
+ *
+ * @param file - The file to read
+ * @param format - The result format. @see RxFileReaderResultFormat
+ */
 export function createRxFileReader$(
   file: File,
   format: 'text'
