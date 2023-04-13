@@ -1,6 +1,6 @@
 # @rx-file-reader
 
-> A simple file reader for RxJS
+> A simple Rxjs Observable wrapper for the browser native FileReader API
 
 ## Packages
 
